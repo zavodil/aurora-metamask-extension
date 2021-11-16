@@ -17,6 +17,7 @@ import EditGasFeePopover from '../edit-gas-fee-popover/edit-gas-fee-popover';
 import EditGasPopover from '../edit-gas-popover';
 
 import EnableEIP1559V2Notice from './enableEIP1559V2-notice';
+import HardwareConnectivityPopover from '../../../pages/confirm-transaction-base/hardware-connectivity/hardware-connectivity-popover';
 import {
   ConfirmPageContainerHeader,
   ConfirmPageContainerContent,
@@ -87,6 +88,9 @@ export default class ConfirmPageContainer extends Component {
     contact: PropTypes.object,
     isOwnedAccount: PropTypes.bool,
     supportsEIP1559V2: PropTypes.bool,
+    // Hardware
+    showingHardwareConnectionContents: PropTypes.bool,
+    showingHardwareConnectionAdvancedPopover: PropTypes.bool,
   };
 
   render() {
@@ -139,6 +143,8 @@ export default class ConfirmPageContainer extends Component {
       contact = {},
       isOwnedAccount,
       supportsEIP1559V2,
+      showingHardwareConnectionContents,
+      showingHardwareConnectionAdvancedPopover,
     } = this.props;
 
     const showAddToAddressDialog =
@@ -151,6 +157,11 @@ export default class ConfirmPageContainer extends Component {
       (currentTransaction.type === TRANSACTION_TYPES.CONTRACT_INTERACTION ||
         currentTransaction.type === TRANSACTION_TYPES.DEPLOY_CONTRACT) &&
       currentTransaction.txParams?.value === '0x0';
+
+    /* ToDo:  We need this method from elevated component */
+    const onHardwareConnectivityClose = () => {
+      console.log('Closing hardware connectivity');
+    };
 
     return (
       <GasFeeContextProvider transaction={currentTransaction}>
@@ -234,7 +245,13 @@ export default class ConfirmPageContainer extends Component {
               ethGasPriceWarning={ethGasPriceWarning}
               hideTitle={hideTitle}
               supportsEIP1559V2={supportsEIP1559V2}
+<<<<<<< HEAD
               hasTopBorder={showAddToAddressDialog}
+=======
+              showingHardwareConnectionContents={
+                showingHardwareConnectionContents
+              }
+>>>>>>> 085e317a4 (Implement hardware connectivity confirmation screens)
             />
           )}
           {shouldDisplayWarning && (
@@ -270,6 +287,11 @@ export default class ConfirmPageContainer extends Component {
               <AdvancedGasFeePopover />
             </>
           )}
+          {showingHardwareConnectionAdvancedPopover ? (
+            <HardwareConnectivityPopover
+              onClose={onHardwareConnectivityClose}
+            />
+          ) : null}
         </div>
       </GasFeeContextProvider>
     );
