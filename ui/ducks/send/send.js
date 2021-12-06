@@ -937,7 +937,7 @@ const slice = createSlice({
     },
     updateRecipient: (state, action) => {
       state.recipient.error = null;
-      state.recipient.userInput = '';
+      state.recipient.userInput = state.recipient.userInput ?? '';
       state.recipient.address = action.payload.address ?? '';
       state.recipient.nickname = action.payload.nickname ?? '';
 
@@ -1072,10 +1072,9 @@ const slice = createSlice({
         recipient.error = null;
         recipient.warning = null;
       } else {
-        const isSendingToken =
-          asset.type === ASSET_TYPES.TOKEN ||
-          asset.type === ASSET_TYPES.COLLECTIBLE;
         const { chainId, tokens, tokenAddressList } = action.payload;
+        const assetAddress = asset?.details?.address ?? '';
+
         if (
           isBurnAddress(recipient.userInput) ||
           (!isValidHexAddress(recipient.userInput, {
@@ -1086,16 +1085,12 @@ const slice = createSlice({
           recipient.error = isDefaultMetaMaskChain(chainId)
             ? INVALID_RECIPIENT_ADDRESS_ERROR
             : INVALID_RECIPIENT_ADDRESS_NOT_ETH_NETWORK_ERROR;
-        } else if (
-          isSendingToken &&
-          isOriginContractAddress(recipient.userInput, asset.details.address)
-        ) {
+        } else if (isOriginContractAddress(recipient.userInput, assetAddress)) {
           recipient.error = CONTRACT_ADDRESS_ERROR;
         } else {
           recipient.error = null;
         }
         if (
-          isSendingToken &&
           isValidHexAddress(recipient.userInput) &&
           (tokenAddressList.find((address) =>
             isEqualCaseInsensitive(address, recipient.userInput),
