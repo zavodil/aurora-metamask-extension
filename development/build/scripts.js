@@ -35,6 +35,7 @@ const metamaskrc = require('rc')('metamask', {
   ONBOARDING_V2: process.env.ONBOARDING_V2,
   COLLECTIBLES_V1: process.env.COLLECTIBLES_V1,
   EIP_1559_V2: process.env.EIP_1559_V2,
+  DARK_MODE_V1: process.env.DARK_MODE_V1,
   SEGMENT_HOST: process.env.SEGMENT_HOST,
   SEGMENT_WRITE_KEY: process.env.SEGMENT_WRITE_KEY,
   SEGMENT_BETA_WRITE_KEY: process.env.SEGMENT_BETA_WRITE_KEY,
@@ -798,6 +799,7 @@ function getEnvironmentVariables({ buildType, devMode, testing }) {
     ONBOARDING_V2: metamaskrc.ONBOARDING_V2 === '1',
     COLLECTIBLES_V1: metamaskrc.COLLECTIBLES_V1 === '1',
     EIP_1559_V2: metamaskrc.EIP_1559_V2 === '1',
+    DARK_MODE_V1: metamaskrc.DARK_MODE_V1 === '1',
   };
 }
 
