@@ -8,7 +8,6 @@ import {
   loadRelativeTimeFormatLocaleData,
 } from '../helpers/utils/i18n-helper';
 import { getMethodDataAsync } from '../helpers/utils/transactions.util';
-import { getSymbolAndDecimals } from '../helpers/utils/token-util';
 import { isEqualCaseInsensitive } from '../helpers/utils/util';
 import switchDirection from '../helpers/utils/switch-direction';
 import {
@@ -22,7 +21,6 @@ import {
   getMetaMaskAccounts,
   getPermittedAccountsForCurrentTab,
   getSelectedAddress,
-  getTokenList,
 } from '../selectors';
 import { computeEstimatedGasLimit, resetSendState } from '../ducks/send';
 import { switchedToUnconnectedAccount } from '../ducks/alerts/unconnected-account';
@@ -2723,6 +2721,18 @@ export function loadingMethodDataFinished() {
   return {
     type: actionConstants.LOADING_METHOD_DATA_FINISHED,
   };
+}
+
+export async function getTokenStandardAndDetails(
+  address,
+  userAddress,
+  tokenId,
+) {
+  return await promisifiedBackground.getTokenStandardAndDetails(
+    address,
+    userAddress,
+    tokenId,
+  );
 }
 
 export function getContractMethodData(data = '') {

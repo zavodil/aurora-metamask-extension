@@ -6,7 +6,7 @@ import {
   transactionFeeSelector,
 } from '../../selectors';
 import { getCollectibles, getTokens } from '../../ducks/metamask/metamask';
-import { getTransactionData } from '../../helpers/utils/transactions.util';
+import { parseTransactionData } from '../../helpers/utils/transactions.util';
 import {
   calcTokenAmount,
   getTokenAddressParam,
@@ -51,7 +51,7 @@ const mapStateToProps = (state, ownProps) => {
   const tokens = getTokens(state);
   const collectibles = getCollectibles(state);
 
-  const transactionData = getTransactionData(data);
+  const transactionData = parseTransactionData(data);
   const toAddress = getTokenAddressParam(transactionData);
   const tokenAmountOrTokenId = getTokenValueParam(transactionData);
   const ethTransactionTotalMaxAmount = Number(

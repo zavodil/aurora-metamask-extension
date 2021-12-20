@@ -49,7 +49,6 @@ export default class ConfirmTransaction extends Component {
     getContractMethodData: PropTypes.func,
     transactionId: PropTypes.string,
     paramsTransactionId: PropTypes.string,
-    getTokenParams: PropTypes.func,
     isTokenMethodAction: PropTypes.bool,
     setDefaultHomeActiveTabName: PropTypes.func,
   };
@@ -74,12 +73,10 @@ export default class ConfirmTransaction extends Component {
       sendTo,
       history,
       mostRecentOverviewPage,
-      transaction: { txParams: { data, to } = {} } = {},
+      transaction: { txParams: { data } = {} } = {},
       getContractMethodData,
       transactionId,
       paramsTransactionId,
-      getTokenParams,
-      isTokenMethodAction,
     } = this.props;
 
     getGasFeeEstimatesAndStartPolling().then((pollingToken) => {
@@ -98,11 +95,12 @@ export default class ConfirmTransaction extends Component {
       history.replace(mostRecentOverviewPage);
       return;
     }
-
     getContractMethodData(data);
-    if (isTokenMethodAction) {
-      getTokenParams(to);
-    }
+
+    // if (isTokenMethodAction) {
+    //   getTokenParams(to);
+    // }
+
     const txId = transactionId || paramsTransactionId;
     if (txId) {
       this.props.setTransactionToConfirm(txId);

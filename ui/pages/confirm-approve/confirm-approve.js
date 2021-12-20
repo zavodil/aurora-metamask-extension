@@ -8,24 +8,16 @@ import {
   updateCustomNonce,
   getNextNonce,
 } from '../../store/actions';
-import { getTransactionData } from '../../helpers/utils/transactions.util';
-import {
-  calcTokenAmount,
-  getTokenAddressParam,
-  getTokenValueParam,
-} from '../../helpers/utils/token-util';
+import { calcTokenAmount } from '../../helpers/utils/token-util';
 import { readAddressAsContract } from '../../../shared/modules/contract-utils';
 import { GasFeeContextProvider } from '../../contexts/gasFee';
 import { TransactionModalContextProvider } from '../../contexts/transaction-modal';
-import { useTokenTracker } from '../../hooks/useTokenTracker';
 import {
-  getTokens,
   getNativeCurrency,
   isAddressLedger,
 } from '../../ducks/metamask/metamask';
 import {
   transactionFeeSelector,
-  txDataSelector,
   getCurrentCurrency,
   getSubjectMetadata,
   getUseNonceField,
@@ -36,14 +28,16 @@ import {
   getIsMultiLayerFeeNetwork,
   checkNetworkAndAccountSupports1559,
   getEIP1559V2Enabled,
+  currentNetworkTxListSelector,
+  txDataSelector,
 } from '../../selectors';
 import { useApproveTransaction } from '../../hooks/useApproveTransaction';
-import { currentNetworkTxListSelector } from '../../selectors/transactions';
 import AdvancedGasFeePopover from '../../components/app/advanced-gas-fee-popover';
 import EditGasFeePopover from '../../components/app/edit-gas-fee-popover';
 import EditGasPopover from '../../components/app/edit-gas-popover/edit-gas-popover.component';
 import Loading from '../../components/ui/loading-screen';
-import { isEqualCaseInsensitive } from '../../helpers/utils/util';
+import { ERC20, ERC1155, ERC721 } from '../../helpers/constants/common';
+import { useAssetDetails } from '../../hooks/useAssetDetails';
 import { getCustomTxParamsData } from './confirm-approve.util';
 import ConfirmApproveContent from './confirm-approve-content';
 
@@ -51,19 +45,38 @@ const isAddressLedgerByFromAddress = (address) => (state) => {
   return isAddressLedger(state, address);
 };
 
-export default function ConfirmApprove() {
+export default function ConfirmApprove({
+  assetStandard,
+  assetName,
+  userBalance,
+  tokenSymbol,
+  decimals,
+  tokenImage,
+  toAddress,
+  tokenAmount,
+  tokenId,
+  userAddress,
+  tokenAddress,
+  transaction,
+}) {
   const dispatch = useDispatch();
-  const { id: paramsTransactionId } = useParams();
+  // const { id: paramsTransactionId } = useParams();
+  // const { id: transactionId } = useSelector(txDataSelector);
+  // const currentNetworkTxList = useSelector(currentNetworkTxListSelector);
+  // const transaction =
+  //   currentNetworkTxList.find(
+  //     ({ id }) => id === (Number(paramsTransactionId) || transactionId),
+  //   ) || {};
+
   const {
-    id: transactionId,
-    txParams: { to: tokenAddress, data, from } = {},
-  } = useSelector(txDataSelector);
+    txParams: {
+      data: transactionData,
+    } = {},
+  } = transaction;
 
   const currentCurrency = useSelector(getCurrentCurrency);
   const nativeCurrency = useSelector(getNativeCurrency);
-  const currentNetworkTxList = useSelector(currentNetworkTxListSelector);
   const subjectMetadata = useSelector(getSubjectMetadata);
-  const tokens = useSelector(getTokens);
   const useNonceField = useSelector(getUseNonceField);
   const nextNonce = useSelector(getNextSuggestedNonce);
   const customNonceValue = useSelector(getCustomNonceValue);
@@ -73,13 +86,13 @@ export default function ConfirmApprove() {
   const networkAndAccountSupports1559 = useSelector(
     checkNetworkAndAccountSupports1559,
   );
+  const fromAddressIsLedger = useSelector(
+    isAddressLedgerByFromAddress(userAddress),
+  );
+  const [customPermissionAmount, setCustomPermissionAmount] = useState('');
+  const [submitWarning, setSubmitWarning] = useState('');
+  const [isContract, setIsContract] = useState(false);
 
-  const fromAddressIsLedger = useSelector(isAddressLedgerByFromAddress(from));
-
-  const transaction =
-    currentNetworkTxList.find(
-      ({ id }) => id === (Number(paramsTransactionId) || transactionId),
-    ) || {};
   const {
     ethTransactionTotal,
     fiatTransactionTotal,
@@ -89,29 +102,19 @@ export default function ConfirmApprove() {
   const eip1559V2Enabled = useSelector(getEIP1559V2Enabled);
   const supportsEIP1559V2 = eip1559V2Enabled && networkAndAccountSupports1559;
 
-  const currentToken = (tokens &&
-    tokens.find(({ address }) =>
-      isEqualCaseInsensitive(tokenAddress, address),
-    )) || {
-    address: tokenAddress,
-  };
-
-  const { tokensWithBalances } = useTokenTracker([currentToken]);
-  const tokenTrackerBalance = tokensWithBalances[0]?.balance || '';
-
-  const tokenSymbol = currentToken?.symbol;
-  const decimals = Number(currentToken?.decimals);
-  const tokenImage = currentToken?.image;
-  const tokenData = getTransactionData(data);
-  const tokenValue = getTokenValueParam(tokenData);
-  const toAddress = getTokenAddressParam(tokenData);
-  const tokenAmount =
-    tokenData && calcTokenAmount(tokenValue, decimals).toString(10);
-
-  const [customPermissionAmount, setCustomPermissionAmount] = useState('');
+  // const {
+  //   assetStandard,
+  //   assetName,
+  //   userBalance,
+  //   tokenSymbol,
+  //   decimals,
+  //   tokenImage,
+  //   toAddress,
+  //   tokenAmount,
+  //   tokenId,
+  // } = useAssetDetails(tokenAddress, userAddress, transactionData);
 
   const previousTokenAmount = useRef(tokenAmount);
-
   const {
     approveTransaction,
     showCustomizeGasPopover,
@@ -125,7 +128,6 @@ export default function ConfirmApprove() {
     previousTokenAmount.current = tokenAmount;
   }, [customPermissionAmount, tokenAmount]);
 
-  const [submitWarning, setSubmitWarning] = useState('');
   const prevNonce = useRef(nextNonce);
   const prevCustomNonce = useRef(customNonceValue);
   useEffect(() => {
@@ -145,7 +147,6 @@ export default function ConfirmApprove() {
     prevNonce.current = nextNonce;
   }, [customNonceValue, nextNonce]);
 
-  const [isContract, setIsContract] = useState(false);
   const checkIfContract = useCallback(async () => {
     const { isContractAddress } = await readAddressAsContract(
       global.eth,
@@ -153,6 +154,7 @@ export default function ConfirmApprove() {
     );
     setIsContract(isContractAddress);
   }, [setIsContract, toAddress]);
+
   useEffect(() => {
     checkIfContract();
   }, [checkIfContract]);
@@ -162,15 +164,24 @@ export default function ConfirmApprove() {
 
   const { iconUrl: siteImage = '' } = subjectMetadata[origin] || {};
 
-  const tokensText = `${Number(tokenAmount)} ${tokenSymbol}`;
-  const tokenBalance = tokenTrackerBalance
-    ? calcTokenAmount(tokenTrackerBalance, decimals).toString(10)
+  let tokensText;
+  if (assetStandard === ERC20) {
+    tokensText = `${Number(tokenAmount)} ${tokenSymbol}`;
+  } else if (assetStandard === ERC721 || assetStandard === ERC1155) {
+    tokensText = assetName;
+  }
+
+  const tokenBalance = userBalance
+    ? calcTokenAmount(userBalance, decimals).toString(10)
     : '';
   const customData = customPermissionAmount
-    ? getCustomTxParamsData(data, { customPermissionAmount, decimals })
+    ? getCustomTxParamsData(transactionData, {
+        customPermissionAmount,
+        decimals,
+      })
     : null;
 
-  return tokenSymbol === undefined ? (
+  return tokenSymbol === undefined && assetName === undefined ? (
     <Loading />
   ) : (
     <GasFeeContextProvider transaction={transaction}>
@@ -191,6 +202,9 @@ export default function ConfirmApprove() {
               tokenSymbol={tokenSymbol}
               tokenImage={tokenImage}
               tokenBalance={tokenBalance}
+              tokenId={tokenId}
+              assetName={assetName}
+              assetStandard={assetStandard}
               showCustomizeGasModal={approveTransaction}
               showEditApprovalPermissionModal={({
                 /* eslint-disable no-shadow */
@@ -213,10 +227,12 @@ export default function ConfirmApprove() {
                     tokenAmount,
                     tokenBalance,
                     tokenSymbol,
+                    tokenId,
+                    assetStandard,
                   }),
                 )
               }
-              data={customData || data}
+              data={customData || transactionData}
               toAddress={toAddress}
               currentCurrency={currentCurrency}
               nativeCurrency={nativeCurrency}

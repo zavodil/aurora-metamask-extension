@@ -4,8 +4,10 @@ import {
   conversionUtil,
   multiplyCurrencies,
 } from '../../../shared/modules/conversion.utils';
+import { getTokenStandardAndDetails } from '../../store/actions';
 import * as util from './util';
 import { formatCurrency } from './confirm-tx.util';
+import { parseTransactionData } from './transactions.util';
 
 const DEFAULT_SYMBOL = '';
 
@@ -211,4 +213,76 @@ export function getTokenFiatAmount(
     result = currentTokenInFiat;
   }
   return result;
+}
+
+export async function getAssetDetails(
+  tokenAddress,
+  currentUserAddress,
+  transactionData,
+  existingCollectibles,
+  existingTokens,
+  tokenList,
+) {
+  const tokenData = parseTransactionData(transactionData);
+  if (!tokenData) {
+    throw new Error('Unable to detect valid token data');
+  }
+
+  const tokenId = getTokenValueParam(tokenData);
+  let tokenDetails;
+  try {
+    tokenDetails = await getTokenStandardAndDetails(
+      tokenAddress,
+      currentUserAddress,
+      tokenId,
+    );
+  } catch (error) {
+    // TODO how to handle expected unable to determine token standard case
+    console.log('error', error);
+  }
+  if (
+    tokenDetails?.standard === 'ERC721' ||
+    tokenDetails?.standard === 'ERC1155'
+  ) {
+    const existingCollectible = existingCollectibles.find(({ address }) =>
+      util.isEqualCaseInsensitive(tokenAddress, address),
+    );
+    if (existingCollectible) {
+      return {
+        address: existingCollectible?.address,
+        description: existingCollectible?.description,
+        favorite: existingCollectible?.favorite,
+        image: existingCollectible?.image,
+        isCurrentlyOwned: existingCollectible?.isCurrentlyOwned,
+        name: existingCollectible?.name,
+        tokenId: existingCollectible?.tokenId,
+        standard: tokenDetails?.standard,
+      };
+    }
+    return tokenDetails;
+  } else if (tokenDetails?.standard === 'ERC20') {
+    const existingToken = existingTokens.find(({ address }) =>
+      util.isEqualCaseInsensitive(tokenAddress, address),
+    );
+    if (existingToken) {
+      return {
+        symbol: existingToken?.symbol,
+        decimals: existingToken?.decimals,
+        balance: tokenDetails?.balance,
+        standard: tokenDetails?.standard,
+      };
+    }
+
+    const { symbol, decimals } = await getSymbolAndDecimals(
+      tokenAddress,
+      tokenList,
+    );
+    return {
+      symbol,
+      decimals,
+      standard: tokenDetails?.standard,
+    };
+  }
+
+  return null;
 }
