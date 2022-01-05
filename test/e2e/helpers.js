@@ -103,6 +103,7 @@ async function withFixtures(options, testSuite) {
     await testSuite({
       driver,
       segmentStub,
+      mockServer,
     });
 
     if (process.env.SELENIUM_BROWSER === 'chrome') {
