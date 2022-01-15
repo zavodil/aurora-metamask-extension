@@ -56,6 +56,7 @@ import {
   getGasFeeEstimatesAndStartPolling,
   addPollingTokenToAppState,
   removePollingTokenFromAppState,
+  checkLedgerReady,
 } from '../../store/actions';
 
 import Typography from '../../components/ui/typography/typography';
@@ -144,6 +145,7 @@ export default class ConfirmTransactionBase extends Component {
     nativeCurrency: PropTypes.string,
     supportsEIP1559: PropTypes.bool,
     hardwareWalletRequiresConnection: PropTypes.bool,
+    connectHardwareWallet: PropTypes.func,
     isMultiLayerFeeNetwork: PropTypes.bool,
     eip1559V2Enabled: PropTypes.bool,
   };
@@ -155,9 +157,63 @@ export default class ConfirmTransactionBase extends Component {
     ethGasPriceWarning: '',
     editingGas: false,
     userAcknowledgedGasMissing: false,
-    showingHardwareConnectionContents: /* false */ true,
-    showingHardwareConnectionAdvancedPopover: /* false */ true,
+    showingHardwareConnectionContents: false,
+    showingHardwareConnectionAdvancedPopover: false,
+    pollingIntervalId: null,
+    hardwareIsReady: true, // Optimistic
   };
+
+  async pollLedgerReady() {
+    const { fromAddress } = this.props;
+    const { pollingIntervalId } = this.state;
+
+    console.log(
+      '[confirm-transaction-base] pollLedgerReadycalled; id: ',
+      pollingIntervalId,
+    );
+
+    // Don't set off multiple calls to checkLedgerReady
+    if (pollingIntervalId !== null) {
+      console.log(
+        '[confirm-transaction-base] avoiding multiple calls for ; id: ',
+        pollingIntervalId,
+      );
+      return undefined;
+    }
+
+    let hardwareIsReady = true;
+    try {
+      console.log(
+        `[confirm-transaction-base] about to call checkLedgerReady for ${fromAddress}`,
+      );
+      hardwareIsReady = await checkLedgerReady(fromAddress);
+      console.log(`[confirm-transaction-base] RETURNED! ${hardwareIsReady}`);
+    } catch (e) {
+      console.error(
+        '[confirm-transaction-base] ERROR checking ledger ready!',
+        e,
+      );
+    }
+
+    this.setState({ hardwareIsReady, pollingIntervalId: null });
+    return undefined;
+  }
+
+  UNSAFE_componentWillMount() {
+    console.log('UNSAFE_componentWillMount!');
+
+    const { showLedgerSteps } = this.props;
+
+    if (!showLedgerSteps) {
+      return;
+    }
+
+    this.pollLedgerReady();
+    const intervalId = setInterval(() => {
+      this.pollLedgerReady();
+    }, 2000);
+    this.setState({ pollingIntervalId: intervalId });
+  }
 
   componentDidUpdate(prevProps) {
     const {
@@ -329,7 +385,7 @@ export default class ConfirmTransactionBase extends Component {
       nativeCurrency,
       connectHardwareWallet,
     } = this.props;
-    const { showingHardwareConnectionContents } = this.state;
+    const { showingHardwareConnectionContents, hardwareIsReady } = this.state;
     const { t } = this.context;
     const { userAcknowledgedGasMissing } = this.state;
 
@@ -652,16 +708,15 @@ export default class ConfirmTransactionBase extends Component {
             showDataInstruction={Boolean(txData.txParams?.data)}
           />
         ) : null}
-        {
-          /* showLedgerSteps */ true ? (
-            <HardwareConnectivityMessage
-              onClick={() => {
-                console.log('Opening the modal!');
-                this.setState({ showingHardwareConnectionContents: true });
-              }}
-            />
-          ) : null
-        }
+        {showLedgerSteps ? (
+          <HardwareConnectivityMessage
+            connected={hardwareIsReady}
+            onClick={() => {
+              console.log('Opening the modal!');
+              this.setState({ showingHardwareConnectionContents: true });
+            }}
+          />
+        ) : null}
       </div>
     );
   }
@@ -1011,6 +1066,11 @@ export default class ConfirmTransactionBase extends Component {
   componentWillUnmount() {
     this._beforeUnloadForGasPolling();
     this._removeBeforeUnload();
+
+    const { pollingIntervalId } = this.state;
+    if (pollingIntervalId) {
+      clearInterval(pollingIntervalId);
+    }
   }
 
   supportsEIP1559V2 =
