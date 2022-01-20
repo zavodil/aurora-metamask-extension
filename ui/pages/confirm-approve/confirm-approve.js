@@ -52,27 +52,17 @@ export default function ConfirmApprove({
   tokenSymbol,
   decimals,
   tokenImage,
-  toAddress,
   tokenAmount,
   tokenId,
   userAddress,
   tokenAddress,
   transaction,
+  ethTransactionTotal,
+  fiatTransactionTotal,
+  hexTransactionTotal,
 }) {
   const dispatch = useDispatch();
-  // const { id: paramsTransactionId } = useParams();
-  // const { id: transactionId } = useSelector(txDataSelector);
-  // const currentNetworkTxList = useSelector(currentNetworkTxListSelector);
-  // const transaction =
-  //   currentNetworkTxList.find(
-  //     ({ id }) => id === (Number(paramsTransactionId) || transactionId),
-  //   ) || {};
-
-  const {
-    txParams: {
-      data: transactionData,
-    } = {},
-  } = transaction;
+  const { txParams: { data: transactionData } = {} } = transaction;
 
   const currentCurrency = useSelector(getCurrentCurrency);
   const nativeCurrency = useSelector(getNativeCurrency);
@@ -93,26 +83,8 @@ export default function ConfirmApprove({
   const [submitWarning, setSubmitWarning] = useState('');
   const [isContract, setIsContract] = useState(false);
 
-  const {
-    ethTransactionTotal,
-    fiatTransactionTotal,
-    hexTransactionTotal,
-  } = useSelector((state) => transactionFeeSelector(state, transaction));
-
   const eip1559V2Enabled = useSelector(getEIP1559V2Enabled);
   const supportsEIP1559V2 = eip1559V2Enabled && networkAndAccountSupports1559;
-
-  // const {
-  //   assetStandard,
-  //   assetName,
-  //   userBalance,
-  //   tokenSymbol,
-  //   decimals,
-  //   tokenImage,
-  //   toAddress,
-  //   tokenAmount,
-  //   tokenId,
-  // } = useAssetDetails(tokenAddress, userAddress, transactionData);
 
   const previousTokenAmount = useRef(tokenAmount);
   const {
@@ -150,10 +122,10 @@ export default function ConfirmApprove({
   const checkIfContract = useCallback(async () => {
     const { isContractAddress } = await readAddressAsContract(
       global.eth,
-      toAddress,
+      tokenAddress,
     );
     setIsContract(isContractAddress);
-  }, [setIsContract, toAddress]);
+  }, [setIsContract, tokenAddress]);
 
   useEffect(() => {
     checkIfContract();
@@ -186,7 +158,7 @@ export default function ConfirmApprove({
   ) : (
     <GasFeeContextProvider transaction={transaction}>
       <ConfirmTransactionBase
-        toAddress={toAddress}
+        toAddress={tokenAddress}
         identiconAddress={tokenAddress}
         showAccountInHeader
         title={tokensText}
@@ -233,7 +205,7 @@ export default function ConfirmApprove({
                 )
               }
               data={customData || transactionData}
-              toAddress={toAddress}
+              toAddress={tokenAddress}
               currentCurrency={currentCurrency}
               nativeCurrency={nativeCurrency}
               ethTransactionTotal={ethTransactionTotal}

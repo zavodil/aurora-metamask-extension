@@ -10,26 +10,55 @@ import {
   addFiat,
   roundExponential,
 } from '../../helpers/utils/confirm-tx.util';
-import { getWeiHexFromDecimalValue } from '../../helpers/utils/conversions.util';
-import { ETH, PRIMARY } from '../../helpers/constants/common';
+import { getWeiHexFromDecimalValue, hexWEIToDecETH, hexWEIToDecGWEI } from '../../helpers/utils/conversions.util';
+import {
+  ERC1155,
+  ERC20,
+  ERC721,
+  ETH,
+  PRIMARY,
+} from '../../helpers/constants/common';
+import {
+  contractExchangeRateSelector,
+  getCurrentCurrency,
+} from '../../selectors';
+import { useSelector } from 'react-redux';
+import {
+  getConversionRate,
+  getNativeCurrency,
+} from '../../ducks/metamask/metamask';
 
 export default function ConfirmTokenTransactionBase({
-  image,
-  title,
-  subtitle,
+  image = '',
+  assetName,
   toAddress,
   tokenAddress,
   tokenAmount = '0',
-  fiatTransactionTotal,
-  ethTransactionTotal,
-  ethTransactionTotalMaxAmount,
-  contractExchangeRate,
-  conversionRate,
-  currentCurrency,
-  nativeCurrency,
+  tokenSymbol,
+  tokenId,
+  assetStandard,
   onEdit,
+  ethTransactionTotal,
+  fiatTransactionTotal,
+  hexMaximumTransactionFee,
 }) {
   const t = useContext(I18nContext);
+  const contractExchangeRate = useSelector(contractExchangeRateSelector);
+  const nativeCurrency = useSelector(getNativeCurrency);
+  const currentCurrency = useSelector(getCurrentCurrency);
+  const conversionRate = useSelector(getConversionRate);
+  
+  const ethTransactionTotalMaxAmount = Number(
+    hexWEIToDecETH(hexMaximumTransactionFee),
+  ).toFixed(6);
+
+  let title, subtitle;
+  if (assetStandard === ERC721 || assetStandard === ERC1155) {
+    title = assetName;
+    subtitle = `#${tokenId}`;
+  } else if (assetStandard === ERC20) {
+    title = `${tokenAmount} ${tokenSymbol}`;
+  }
 
   const hexWeiValue = useMemo(() => {
     if (tokenAmount === '0' || !contractExchangeRate) {
@@ -108,7 +137,6 @@ ConfirmTokenTransactionBase.propTypes = {
   title: PropTypes.string,
   subtitle: PropTypes.string,
   tokenAddress: PropTypes.string,
-  toAddress: PropTypes.string,
   tokenAmount: PropTypes.string,
   fiatTransactionTotal: PropTypes.string,
   ethTransactionTotal: PropTypes.string,

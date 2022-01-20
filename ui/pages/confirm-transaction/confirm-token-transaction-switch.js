@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 import {
   CONFIRM_APPROVE_PATH,
@@ -7,9 +8,10 @@ import {
   CONFIRM_TRANSACTION_ROUTE,
   CONFIRM_TRANSFER_FROM_PATH,
 } from '../../helpers/constants/routes';
+import { transactionFeeSelector } from '../../selectors';
 import ConfirmApprove from '../confirm-approve';
 import ConfirmSendToken from '../confirm-send-token/confirm-send-token.component';
-import ConfirmTokenTransactionBaseContainer from '../confirm-token-transaction-base';
+import ConfirmTokenTransactionBase from '../confirm-token-transaction-base/confirm-token-transaction-base.component';
 import ConfirmTransactionBase from '../confirm-transaction-base/confirm-transaction-base.component';
 import ConfirmTransactionSwitch from '../confirm-transaction-switch';
 
@@ -19,6 +21,7 @@ export const ConfirmTokenTransactionSwitch = ({ transaction }) => {
   const {
     txParams: { data, to: tokenAddress, from: userAddress } = {},
   } = transaction;
+
   const {
     assetStandard,
     assetName,
@@ -26,10 +29,16 @@ export const ConfirmTokenTransactionSwitch = ({ transaction }) => {
     tokenSymbol,
     decimals,
     tokenImage,
-    toAddress,
     tokenAmount,
     tokenId,
+    toAddress,
   } = useAssetDetails(tokenAddress, userAddress, data);
+
+  const {
+    ethTransactionTotal,
+    fiatTransactionTotal,
+    hexTransactionTotal,
+  } = useSelector((state) => transactionFeeSelector(state, transaction));
 
   return (
     <Switch>
@@ -44,33 +53,40 @@ export const ConfirmTokenTransactionSwitch = ({ transaction }) => {
             tokenSymbol={tokenSymbol}
             decimals={decimals}
             tokenImage={tokenImage}
-            toAddress={toAddress}
             tokenAmount={tokenAmount}
             tokenId={tokenId}
             userAddress={userAddress}
             tokenAddress={tokenAddress}
+            toAddress={toAddress}
             transaction={transaction}
+            ethTransactionTotal={ethTransactionTotal}
+            fiatTransactionTotal={fiatTransactionTotal}
+            hexTransactionTotal={hexTransactionTotal}
           />
         )}
       />
       <Route
         exact
         path={`${CONFIRM_TRANSACTION_ROUTE}/:id?${CONFIRM_TRANSFER_FROM_PATH}`}
-        component={ConfirmTokenTransactionBaseContainer}
+        // component={ConfirmTokenTransactionBaseContainer}
         render={() => (
-          <ConfirmTokenTransactionBaseContainer
+          <ConfirmTokenTransactionBase
             assetStandard={assetStandard}
             assetName={assetName}
             userBalance={userBalance}
             tokenSymbol={tokenSymbol}
             decimals={decimals}
-            tokenImage={tokenImage}
+            image={tokenImage}
+            tokenAddress={tokenAddress}
             toAddress={toAddress}
             tokenAmount={tokenAmount}
             tokenId={tokenId}
             userAddress={userAddress}
             tokenAddress={tokenAddress}
             transaction={transaction}
+            ethTransactionTotal={ethTransactionTotal}
+            fiatTransactionTotal={fiatTransactionTotal}
+            hexTransactionTotal={hexTransactionTotal}
           />
         )}
       />

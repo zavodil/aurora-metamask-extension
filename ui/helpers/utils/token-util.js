@@ -8,6 +8,7 @@ import { getTokenStandardAndDetails } from '../../store/actions';
 import * as util from './util';
 import { formatCurrency } from './confirm-tx.util';
 import { parseTransactionData } from './transactions.util';
+import { ERC1155, ERC20, ERC721 } from '../constants/common';
 
 const DEFAULT_SYMBOL = '';
 
@@ -220,8 +221,6 @@ export async function getAssetDetails(
   currentUserAddress,
   transactionData,
   existingCollectibles,
-  existingTokens,
-  tokenList,
 ) {
   const tokenData = parseTransactionData(transactionData);
   if (!tokenData) {
@@ -240,10 +239,7 @@ export async function getAssetDetails(
     // TODO how to handle expected unable to determine token standard case
     console.log('error', error);
   }
-  if (
-    tokenDetails?.standard === 'ERC721' ||
-    tokenDetails?.standard === 'ERC1155'
-  ) {
+  if (tokenDetails?.standard === ERC721 || tokenDetails?.standard === ERC1155) {
     const existingCollectible = existingCollectibles.find(({ address }) =>
       util.isEqualCaseInsensitive(tokenAddress, address),
     );
@@ -260,26 +256,11 @@ export async function getAssetDetails(
       };
     }
     return tokenDetails;
-  } else if (tokenDetails?.standard === 'ERC20') {
-    const existingToken = existingTokens.find(({ address }) =>
-      util.isEqualCaseInsensitive(tokenAddress, address),
-    );
-    if (existingToken) {
-      return {
-        symbol: existingToken?.symbol,
-        decimals: existingToken?.decimals,
-        balance: tokenDetails?.balance,
-        standard: tokenDetails?.standard,
-      };
-    }
-
-    const { symbol, decimals } = await getSymbolAndDecimals(
-      tokenAddress,
-      tokenList,
-    );
+  } else if (tokenDetails?.standard === ERC20) {
     return {
-      symbol,
-      decimals,
+      symbol: tokenDetails?.symbol,
+      decimals: tokenDetails?.decimals,
+      balance: tokenDetails?.balance,
       standard: tokenDetails?.standard,
     };
   }
