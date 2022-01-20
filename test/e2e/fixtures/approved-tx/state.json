@@ -23,63 +23,6 @@
         "rinkeby": 5570536
       }
     },
-    "TransactionController": {
-      "transactions": {
-        "7911313280012623": {
-          "chainId": "0x539",
-          "dappSuggestedGasFees": {
-            "gas": "0x5208",
-            "gasPrice": "0x4a817c800"
-          },
-          "history": [
-            {
-              "chainId": "0x539",
-              "dappSuggestedGasFees": {
-                "gas": "0x5208",
-                "gasPrice": "0x4a817c800"
-              },
-              "id": 7911313280012623,
-              "loadingDefaults": true,
-              "metamaskNetworkId": "1337",
-              "origin": "https://metamask.github.io",
-              "status": "unapproved",
-              "time": 1631545991949,
-              "txParams": {
-                "from": "0x5cfe73b6021e818b776b421b1c4db2474086a7e1",
-                "gas": "0x5208",
-                "gasPrice": "0x4a817c800",
-                "to": "0x2f318c334780961fb129d2a6c30d0763d9a5c970",
-                "value": "0x29a2241af62c0000"
-              },
-              "type": "sentEther"
-            },
-            [
-              {
-                "note": "Added new unapproved transaction.",
-                "op": "replace",
-                "path": "/loadingDefaults",
-                "timestamp": 1631545992244,
-                "value": false
-              }
-            ]
-          ],
-          "id": 7911313280012623,
-          "loadingDefaults": false,
-          "metamaskNetworkId": "1337",
-          "origin": "https://metamask.github.io",
-          "status": "unapproved",
-          "time": 1631545991949,
-          "txParams": {
-            "from": "0x5cfe73b6021e818b776b421b1c4db2474086a7e1",
-            "gas": "0x5208",
-            "gasPrice": "0x4a817c800",
-            "to": "0x2f318c334780961fb129d2a6c30d0763d9a5c970",
-            "value": "0x29a2241af62c0000"
-          },
-          "type": "sentEther"
-        }
-      }
-    },
     "KeyringController": {
       "vault": "{\"data\":\"s6TpYjlUNsn7ifhEFTkuDGBUM1GyOlPrim7JSjtfIxgTt8/6MiXgiR/CtFfR4dWW2xhq85/NGIBYEeWrZThGdKGarBzeIqBfLFhw9n509jprzJ0zc2Rf+9HVFGLw+xxC4xPxgCS0IIWeAJQ+XtGcHmn0UZXriXm8Ja4kdlow6SWinB7sr/WM3R0+frYs4WgllkwggDf2/Tv6VHygvLnhtzp6hIJFyTjh+l/KnyJTyZW1TkZhDaNDzX3SCOHT\",\"iv\":\"FbeHDAW5afeWNORfNJBR0Q==\",\"salt\":\"TxZ+WbCW6891C9LK/hbMAoUsSEW1E8pyGLVBU6x5KR8=\"}"
     },
@@ -500,6 +443,153 @@
         },
         "1337": {
           "timestamp": 1628769513476
+        }
+      }
+    },
+    "TransactionController": {
+      "transactions": {
+        "7911313280012623": {
+          "chainId": "0x539",
+          "dappSuggestedGasFees": {
+            "gas": "0x5208",
+            "gasPrice": "0x4a817c800"
+          },
+          "history": [
+            {
+              "chainId": "0x539",
+              "dappSuggestedGasFees": {
+                "gas": "0x5208",
+                "gasPrice": "0x4a817c800"
+              },
+              "id": 7911313280012623,
+              "loadingDefaults": true,
+              "metamaskNetworkId": "1337",
+              "origin": "https://metamask.github.io",
+              "status": "unapproved",
+              "time": 1631545991949,
+              "txParams": {
+                "from": "0x5cfe73b6021e818b776b421b1c4db2474086a7e1",
+                "gas": "0x5208",
+                "gasPrice": "0x4a817c800",
+                "to": "0x2f318c334780961fb129d2a6c30d0763d9a5c970",
+                "value": "0x29a2241af62c0000",
+                "nonce": "0x0",
+
+              },
+              "type": "sentEther"
+            },
+            [
+              {
+                "op": "replace",
+                "path": "/loadingDefaults",
+                "value": false,
+                "note": "Added new unapproved transaction.",
+                "timestamp": 1642690106771
+              },
+              {
+                "op": "add",
+                "path": "/userFeeLevel",
+                "value": "medium"
+              }
+            ],
+            [
+              {
+                "op": "replace",
+                "path": "/txParams/maxFeePerGas",
+                "value": "0x59682f2a",
+                "note": "confTx: user approved transaction",
+                "timestamp": 1642690121224
+              },
+              {
+                "op": "add",
+                "path": "/estimatedBaseFee",
+                "value": "21"
+              }
+            ],
+            [
+              {
+                "op": "replace",
+                "path": "/status",
+                "value": "approved",
+                "note": "txStateManager: setting status to approved",
+                "timestamp": 1642690121224
+              }
+            ],
+            [
+              {
+                "op": "add",
+                "path": "/txParams/nonce",
+                "value": "0x28",
+                "note": "transactions#approveTransaction",
+                "timestamp": 1642690121236
+              },
+              {
+                "op": "add",
+                "path": "/nonceDetails",
+                "value": {
+                  "params": {
+                    "highestLocallyConfirmed": 0,
+                    "highestSuggested": 40,
+                    "nextNetworkNonce": 40
+                  },
+                  "local": {
+                    "name": "local",
+                    "nonce": 40,
+                    "details": {
+                      "startPoint": 40,
+                      "highest": 40
+                    }
+                  },
+                  "network": {
+                    "name": "network",
+                    "nonce": 40,
+                    "details": {
+                      "blockNumber": "0x98f680",
+                      "baseCount": 40
+                    }
+                  }
+                }
+              }
+            ]
+          ],
+          "id": 7911313280012623,
+          "loadingDefaults": false,
+          "metamaskNetworkId": "1337",
+          "origin": "https://metamask.github.io",
+          "status": "approved",
+          "time": 1631545991949,
+          "txParams": {
+            "from": "0x5cfe73b6021e818b776b421b1c4db2474086a7e1",
+            "gas": "0x5208",
+            "gasPrice": "0x4a817c800",
+            "to": "0x2f318c334780961fb129d2a6c30d0763d9a5c970",
+            "value": "0x29a2241af62c0000",
+            "nonce": "0x0",
+          },
+          "nonceDetails": {
+            "params": {
+              "highestLocallyConfirmed": 0,
+              "highestSuggested": 0,
+              "nextNetworkNonce": 0
+            },
+            "local": {
+              "name": "local",
+              "nonce": 0,
+              "details": {
+                "startPoint": 0,
+                "highest": 0
+              }
+            },
+            "network": {
+              "name": "network",
+              "nonce": 0,
+              "details": {
+                "blockNumber": "0x98f680",
+                "baseCount": 0
+              }
+            }
+          },
+          "type": "sentEther"
         }
       }
     },

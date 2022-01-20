@@ -2,7 +2,7 @@ import React, { useMemo, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import ListItem from '../../ui/list-item';
 import { useTransactionDisplayData } from '../../../hooks/useTransactionDisplayData';
@@ -54,11 +54,14 @@ function TransactionListItemInner({
   const [showRetryEditGasPopover, setShowRetryEditGasPopover] = useState(false);
   const { supportsEIP1559V2 } = useGasFeeContext();
   const { openModal } = useTransactionModalContext();
+  const dispatch = useDispatch();
 
   const {
     initialTransaction: { id },
     primaryTransaction: { err, status },
   } = transactionGroup;
+
+  const isApprovedButNotSubmitted = status === TRANSACTION_STATUSES.APPROVED;
 
   const speedUpMetricsEvent = useMetricEvent({
     eventOpts: {
@@ -94,7 +97,9 @@ function TransactionListItemInner({
     (event) => {
       event.stopPropagation();
       cancelMetricsEvent();
-      if (supportsEIP1559V2) {
+      if (isApprovedButNotSubmitted) {
+        dispatch(cancelTx(primaryTransaction));
+      } else if (supportsEIP1559V2) {
         setEditGasMode(EDIT_GAS_MODES.CANCEL);
         openModal('cancelSpeedUpTransaction');
       } else {
