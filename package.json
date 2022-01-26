@@ -170,6 +170,7 @@
     "human-standard-collectible-abi": "^1.0.2",
     "human-standard-token-abi": "^2.0.0",
     "immer": "^9.0.6",
+    "jest-canvas-mock": "^2.3.1",
     "json-rpc-engine": "^6.1.0",
     "json-rpc-middleware-stream": "^2.1.1",
     "jsonschema": "^1.2.4",

@@ -203,6 +203,28 @@
     & .dialog {
       margin-top: 10px;
     }
+
+    &__identicon {
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
+      justify-content: space-between;
+
+      &__item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    &__description {
+      @include H6;
+
+      margin-top: 8px;
+      margin-bottom: 12px;
+      color: var(--dusty-gray);
+    }
   }
 
   &__content-label {
