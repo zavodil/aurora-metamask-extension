@@ -377,9 +377,6 @@
   "blockies": {
     "message": "Blockies"
   },
-  "blockiesIdenticon": {
-    "message": "Use Blockies Identicon"
-  },
   "browserNotSupported": {
     "message": "Your Browser is not supported..."
   },

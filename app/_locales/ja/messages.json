@@ -371,9 +371,6 @@
     "message": "$1 のアカウントを表示",
     "description": "$1 replaced by URL for custom block explorer"
   },
-  "blockiesIdenticon": {
-    "message": "Blockies アイデンティコンの使用"
-  },
   "browserNotSupported": {
     "message": "ご使用のブラウザーはサポートされていません..."
   },
