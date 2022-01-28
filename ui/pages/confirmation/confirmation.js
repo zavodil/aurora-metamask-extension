@@ -14,12 +14,11 @@ import Chip from '../../components/ui/chip';
 import MetaMaskTemplateRenderer from '../../components/app/metamask-template-renderer';
 import SiteIcon from '../../components/ui/site-icon';
 import { DEFAULT_ROUTE } from '../../helpers/constants/routes';
+import { COLORS, FLEX_DIRECTION } from '../../helpers/constants/design-system';
 import { stripHttpsScheme } from '../../helpers/utils/util';
 import { useI18nContext } from '../../hooks/useI18nContext';
 import { useOriginMetadata } from '../../hooks/useOriginMetadata';
 import { getUnapprovedTemplatedConfirmations } from '../../selectors';
-import NetworkDisplay from '../../components/app/network-display/network-display';
-import { COLORS, SIZES } from '../../helpers/constants/design-system';
 import Callout from '../../components/ui/callout';
 import ConfirmationFooter from './components/confirmation-footer';
 import { getTemplateValues, getTemplateAlerts } from './templates';
@@ -185,23 +184,20 @@ export default function ConfirmationPage() {
         </div>
       )}
       <div className="confirmation-page__content">
-        <Box justifyContent="center">
-          <NetworkDisplay
-            colored={false}
-            indicatorSize={SIZES.XS}
-            labelProps={{ color: COLORS.BLACK }}
+        <Box
+          alignItems="center"
+          marginTop={1}
+          padding={[1, 4, 4]}
+          flexDirection={FLEX_DIRECTION.COLUMN}
+        >
+          <SiteIcon
+            icon={originMetadata.iconUrl}
+            name={originMetadata.hostname}
+            size={36}
           />
-        </Box>
-        <Box justifyContent="center" padding={[1, 4, 4]}>
           <Chip
             label={stripHttpsScheme(originMetadata.origin)}
-            leftIcon={
-              <SiteIcon
-                icon={originMetadata.iconUrl}
-                name={originMetadata.hostname}
-                size={32}
-              />
-            }
+            borderColor={COLORS.WHITE}
           />
         </Box>
         <MetaMaskTemplateRenderer sections={templatedValues.content} />
