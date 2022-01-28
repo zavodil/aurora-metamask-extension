@@ -1,11 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import availableCurrencies from '../../../helpers/constants/available-conversions.json';
-import {
-  TYPOGRAPHY,
-  COLORS,
-  FONT_WEIGHT,
-} from '../../../helpers/constants/design-system';
+import { TYPOGRAPHY, COLORS } from '../../../helpers/constants/design-system';
 import Dropdown from '../../../components/ui/dropdown';
 import ToggleButton from '../../../components/ui/toggle-button';
 import locales from '../../../../app/_locales/index.json';
@@ -184,6 +180,7 @@ export default class SettingsTab extends PureComponent {
           <div className="settings-page__content-item__identicon">
             <div className="settings-page__content-item__identicon__item">
               <div
+                data-test-id="jazz_icon"
                 onClick={() => setUseBlockie(false)}
                 style={useBlockie ? null : getStyles(40)}
               >
@@ -206,6 +203,7 @@ export default class SettingsTab extends PureComponent {
             </div>
             <div className="settings-page__content-item__identicon__item">
               <div
+                data-test-id="blockie_icon"
                 onClick={() => setUseBlockie(true)}
                 style={useBlockie ? getStyles(40) : null}
               >
