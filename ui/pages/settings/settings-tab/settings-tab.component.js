@@ -204,7 +204,7 @@ export default class SettingsTab extends PureComponent {
                 color={COLORS.BLACK}
                 variant={TYPOGRAPHY.H7}
                 fontWeight={FONT_WEIGHT.BOLD}
-                margin={[0, 0, 0, 3]}
+                margin={[0, 12, 0, 3]}
               >
                 {t('jazzicons')}
               </Typography>
