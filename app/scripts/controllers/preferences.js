@@ -31,7 +31,7 @@ export default class PreferencesController {
   constructor(opts = {}) {
     const initState = {
       frequentRpcListDetail: [],
-      useBlockie: false,
+      useBlockie: true,
       useNonceField: false,
       usePhishDetect: true,
       dismissSeedBackUpReminder: false,

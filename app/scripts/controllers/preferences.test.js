@@ -43,13 +43,13 @@ describe('preferences controller', function () {
   });
 
   describe('useBlockie', function () {
-    it('defaults useBlockie to false', function () {
-      assert.equal(preferencesController.store.getState().useBlockie, false);
+    it('defaults useBlockie to true', function () {
+      assert.equal(preferencesController.store.getState().useBlockie, true);
     });
 
-    it('setUseBlockie to true', function () {
-      preferencesController.setUseBlockie(true);
-      assert.equal(preferencesController.store.getState().useBlockie, true);
+    it('setUseBlockie to false', function () {
+      preferencesController.setUseBlockie(false);
+      assert.equal(preferencesController.store.getState().useBlockie, false);
     });
   });
 
