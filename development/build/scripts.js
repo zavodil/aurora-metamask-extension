@@ -12,6 +12,7 @@ const browserify = require('browserify');
 const watchify = require('watchify');
 const babelify = require('babelify');
 const brfs = require('brfs');
+const tsify = require('tsify');
 const envify = require('loose-envify/custom');
 const sourcemaps = require('gulp-sourcemaps');
 const applySourceMap = require('vinyl-sourcemaps-apply');
@@ -681,12 +682,15 @@ function setupBundlerDefaults(
     addIgnore,
     addExclude,
     addTransform,
+    addPlugin,
   } = buildConfiguration;
 
   // Remove code that should be excluded from builds of the current type
   addTransform(
     createRemoveFencedCodeTransform(buildType, shouldLintFenceFiles),
   );
+  // Convert TypeScript
+  addPlugin(tsify, { files: [] });
   // Transpile top-level code
   addTransform(babelify);
   // Inline `fs.readFileSync` files
