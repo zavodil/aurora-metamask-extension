@@ -771,9 +771,6 @@
   "restore": {
     "message": "እነበረበት መልስ"
   },
-  "restoreAccountWithSeed": {
-    "message": "መለያዎን በዘር ሐረግ ወደነበረበት ይመልሱ"
-  },
   "revealSeedWords": {
     "message": "የዘር ቃላትን ይግለጹ"
   },

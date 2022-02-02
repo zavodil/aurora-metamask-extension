@@ -748,9 +748,6 @@
   "restore": {
     "message": "Wiederherstellen"
   },
-  "restoreAccountWithSeed": {
-    "message": "Ihr Konto mit mnemonischer Phrase wiederherstellen"
-  },
   "revealSeedWords": {
     "message": "Seed-Wörterfolge anzeigen"
   },

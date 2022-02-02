@@ -1304,9 +1304,6 @@
   "importAccountError": {
     "message": "Galat saat mengimpor akun."
   },
-  "importAccountLinkText": {
-    "message": "impor menggunakan Frasa Pemulihan Rahasia"
-  },
   "importAccountMsg": {
     "message": " Akun yang diimpor tidak akan dikaitkan dengan Frasa Pemulihan Rahasia akun MetaMask yang asli dibuat. Pelajari selengkapnya tentang akun yang diimpor "
   },
@@ -2258,9 +2255,6 @@
   },
   "restore": {
     "message": "Pulihkan"
-  },
-  "restoreAccountWithSeed": {
-    "message": "Memulihkan Akun dengan Frasa Pemulihan Rahasia"
   },
   "restoreWalletPreferences": {
     "message": "Cadangan data Anda dari $1 telah ditemukan. Apakah Anda ingin memulihkan preferensi dompet Anda?",

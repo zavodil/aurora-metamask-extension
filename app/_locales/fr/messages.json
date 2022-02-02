@@ -1304,9 +1304,6 @@
   "importAccountError": {
     "message": "Erreur d’importation de compte."
   },
-  "importAccountLinkText": {
-    "message": "importer en utilisant la Phrase secrète de récupération"
-  },
   "importAccountMsg": {
     "message": " Les comptes importés ne seront pas associés avec votre phrase Seed que vous avez créé au départ dans MetaMask. Obtenir plus d'information sur les comptes importés"
   },
@@ -2258,9 +2255,6 @@
   },
   "restore": {
     "message": "Restaurer"
-  },
-  "restoreAccountWithSeed": {
-    "message": "Restaurer votre compte avec une phrase Seed."
   },
   "restoreWalletPreferences": {
     "message": "Une sauvegarde de vos données de $1 a été trouvée. Voulez-vous restaurer vos préférences de portefeuille ?",

@@ -1304,9 +1304,6 @@
   "importAccountError": {
     "message": "Hesap içe aktarılırken hata oluştu."
   },
-  "importAccountLinkText": {
-    "message": "Gizli Kurtarma İfadesi kullanarak içe aktarın"
-  },
   "importAccountMsg": {
     "message": " Alınan hesaplar orjinal kaynakifadenizle yarattığınız MetaMask hesabınızla ilişkilendirilmez. Alınan hesaplar ile ilgili daha fazla bilgi edinin "
   },
@@ -2258,9 +2255,6 @@
   },
   "restore": {
     "message": "Geri Yükle"
-  },
-  "restoreAccountWithSeed": {
-    "message": "Gizli Kurtarma İfadesi ile Hesabınızı geri yükleyin"
   },
   "restoreWalletPreferences": {
     "message": "$1 kaynaklı verilerinizin bir yedeği bulundu. Cüzdan tercihlerinizi geri yüklemek ister misiniz?",

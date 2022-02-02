@@ -783,9 +783,6 @@
   "restore": {
     "message": "שחזר"
   },
-  "restoreAccountWithSeed": {
-    "message": "שחזר את חשבונך באמצעות צירוף הגרעין"
-  },
   "revealSeedWords": {
     "message": "גלה מילות Seed"
   },

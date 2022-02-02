@@ -1304,9 +1304,6 @@
   "importAccountError": {
     "message": "アカウントのインポート中にエラーが発生しました。"
   },
-  "importAccountLinkText": {
-    "message": "シークレット リカバリー フレーズを使用してインポートする"
-  },
   "importAccountMsg": {
     "message": " インポートされたアカウントは、最初に作成した MetaMask アカウントのシークレット リカバリー フレーズと関連付けられません。インポートされたアカウントの詳細を表示"
   },
@@ -2258,9 +2255,6 @@
   },
   "restore": {
     "message": "復元"
-  },
-  "restoreAccountWithSeed": {
-    "message": "シークレット リカバリー フレーズでアカウントを復元する"
   },
   "restoreWalletPreferences": {
     "message": "$1 のデータのバックアップが見つかりました。ウォレットの基本設定を復元しますか?",

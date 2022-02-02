@@ -863,9 +863,6 @@
   "importAccount": {
     "message": "Importar conta"
   },
-  "importAccountLinkText": {
-    "message": "importar usando a Frase de recuperação secreta"
-  },
   "importAccountMsg": {
     "message": " As contas importadas não estarão associadas à Frase de recuperação secreta da conta do MetaMask criada originalmente. Saiba mais sobre as contas importadas "
   },
@@ -1447,9 +1444,6 @@
   },
   "restore": {
     "message": "Restaurar"
-  },
-  "restoreAccountWithSeed": {
-    "message": "Restaure sua conta com a Frase de recuperação secreta"
   },
   "restoreWalletPreferences": {
     "message": "Encontramos um backup dos seus dados de $1. Gostaria de restaurar as preferências da sua carteira?",

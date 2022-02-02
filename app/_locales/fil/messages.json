@@ -710,9 +710,6 @@
   "restore": {
     "message": "Ipanumbalik"
   },
-  "restoreAccountWithSeed": {
-    "message": "I-restore ang iyong Account gamit ang Seed Phrase"
-  },
   "revealSeedWords": {
     "message": "Ipakita ang Seed Words"
   },
