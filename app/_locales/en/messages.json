@@ -2555,6 +2555,9 @@
   "send": {
     "message": "Send"
   },
+  "sendingToTokenContractWarning": {
+    "message": "Warning: you are about to send to a token contract. Click to proceed."
+  },
   "sendAmount": {
     "message": "Send Amount"
   },
