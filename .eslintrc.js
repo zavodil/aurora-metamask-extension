@@ -4,7 +4,12 @@ const { version: reactVersion } = require('react/package.json');
 module.exports = {
   root: true,
   // Ignore files which are also in .prettierignore
-  ignorePatterns: ['app/vendor/**', 'dist/**/*', 'development/chromereload.js'],
+  ignorePatterns: [
+    'app/vendor/**',
+    'dist/**/*',
+    'development/chromereload.js',
+    'node_modules/**/*',
+  ],
   overrides: [
     /**
      * == Modules ==
@@ -36,6 +41,7 @@ module.exports = {
         path.resolve(__dirname, '.eslintrc.base.js'),
         path.resolve(__dirname, '.eslintrc.node.js'),
         path.resolve(__dirname, '.eslintrc.babel.js'),
+        path.resolve(__dirname, '.eslintrc.typescript-compat.js'),
       ],
       parserOptions: {
         sourceType: 'module',
@@ -44,6 +50,17 @@ module.exports = {
         // This rule does not work with CommonJS modules. We will just have to
         // trust that all of the files specified above are indeed modules.
         'import/unambiguous': 'off',
+      },
+      settings: {
+        'import/resolver': {
+          // When mapping a require path to a file, try a CommonJS module first,
+          // and if that doesn't exist, try a TypeScript module. This allows
+          // TypeScript files to be imported from JavaScript files, while also
+          // preventing issues when using packages like "No default export found
+          // in imported module 'prop-types'."
+          node: {},
+          typescript: {},
+        },
       },
     },
     /**
@@ -70,9 +87,72 @@ module.exports = {
         path.resolve(__dirname, '.eslintrc.base.js'),
         path.resolve(__dirname, '.eslintrc.node.js'),
         path.resolve(__dirname, '.eslintrc.babel.js'),
+        path.resolve(__dirname, '.eslintrc.typescript-compat.js'),
       ],
       parserOptions: {
         sourceType: 'module',
+      },
+      settings: {
+        'import/resolver': {
+          // When mapping a require path to a file, try a CommonJS module first,
+          // and if that doesn't exist, try a TypeScript module. This allows
+          // TypeScript files to be imported from JavaScript files, while also
+          // preventing issues when using packages like "No default export found
+          // in imported module 'prop-types'."
+          node: {},
+          typescript: {},
+        },
+      },
+    },
+    /**
+     * TypeScript files
+     */
+    {
+      files: ['*.{ts,tsx}'],
+      extends: [
+        path.resolve(__dirname, '.eslintrc.base.js'),
+        '@metamask/eslint-config-typescript',
+        'plugin:@typescript-eslint/recommended-requiring-type-checking',
+        path.resolve(__dirname, '.eslintrc.typescript-compat.js'),
+      ],
+      parserOptions: {
+        tsconfigRootDir: __dirname,
+        project: ['./tsconfig.json'],
+      },
+      rules: {
+        // Turn this back on as per
+        // <https://github.com/alexgorbatchev/eslint-import-resolver-typescript>
+        'import/no-unresolved': 'error',
+
+        // disabled due to incompatibility with Record<string, unknown>
+        // See https://github.com/Microsoft/TypeScript/issues/15300#issuecomment-702872440
+        '@typescript-eslint/consistent-type-definitions': 'off',
+
+        // Modified to include the 'ignoreRestSiblings' option
+        // TODO: Migrate this rule change back into `@metamask/eslint-config`
+        '@typescript-eslint/no-unused-vars': [
+          'error',
+          {
+            vars: 'all',
+            args: 'all',
+            argsIgnorePattern: '[_]+',
+            ignoreRestSiblings: true,
+          },
+        ],
+      },
+      settings: {
+        'import/resolver': {
+          // When mapping a require path to a file, try a TypeScript module
+          // first, and if that doesn't exist, try a CommonJS module.
+          typescript: {},
+          node: {},
+        },
+      },
+    },
+    {
+      files: ['*.d.ts'],
+      parserOptions: {
+        sourceType: 'script',
       },
     },
 

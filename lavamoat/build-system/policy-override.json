@@ -19,6 +19,8 @@
         "@babel/eslint-plugin": true,
         "@metamask/eslint-config": true,
         "@metamask/eslint-config-nodejs": true,
+        "@metamask/eslint-config-typescript": true,
+        "@typescript-eslint/eslint-plugin": true,
         "eslint": true,
         "eslint-config-prettier": true,
         "eslint-plugin-import": true,
@@ -27,6 +29,34 @@
         "eslint-plugin-prettier": true,
         "eslint-plugin-react": true,
         "eslint-plugin-react-hooks": true
+      }
+    },
+    "@typescript-eslint/eslint-plugin": {
+      "packages": {
+        "@typescript-eslint/experimental-utils": true
+      }
+    },
+    "@typescript-eslint/experimental-utils": {
+      "builtin": {
+        "path": true
+      },
+      "packages": {
+        "@typescript-eslint/scope-manager": true,
+        "@typescript-eslint/types": true,
+        "eslint": true,
+        "eslint-scope": true,
+        "eslint-utils": true
+      }
+    },
+    "@typescript-eslint/scope-manager": {
+      "packages": {
+        "@typescript-eslint/types": true,
+        "@typescript-eslint/visitor-keys": true
+      }
+    },
+    "@typescript-eslint/visitor-keys": {
+      "packages": {
+        "eslint-visitor-keys": true
       }
     },
     "eslint-module-utils": {
