@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import availableCurrencies from '../../../helpers/constants/available-conversions.json';
 import { TYPOGRAPHY, COLORS } from '../../../helpers/constants/design-system';
 import Dropdown from '../../../components/ui/dropdown';
@@ -151,16 +152,6 @@ export default class SettingsTab extends PureComponent {
       tokenList,
     } = this.props;
 
-    const getStyles = (diameter) => ({
-      height: diameter,
-      width: diameter,
-      borderRadius: diameter,
-      border: '2px solid #037DD6',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-    });
-
     const getIconStyles = () => ({
       display: 'block',
       borderRadius: '16px',
@@ -181,8 +172,13 @@ export default class SettingsTab extends PureComponent {
             <div className="settings-page__content-item__identicon__item">
               <div
                 data-test-id="jazz_icon"
+                className={classnames(
+                  'settings-page__content-item__identicon__item__icon',
+                  {
+                    'settings-page__content-item__identicon__item__icon--active': !useBlockie,
+                  },
+                )}
                 onClick={() => setUseBlockie(false)}
-                style={useBlockie ? null : getStyles(40)}
               >
                 <Jazzicon
                   id="jazzicon"
@@ -204,8 +200,13 @@ export default class SettingsTab extends PureComponent {
             <div className="settings-page__content-item__identicon__item">
               <div
                 data-test-id="blockie_icon"
+                className={classnames(
+                  'settings-page__content-item__identicon__item__icon',
+                  {
+                    'settings-page__content-item__identicon__item__icon--active': useBlockie,
+                  },
+                )}
                 onClick={() => setUseBlockie(true)}
-                style={useBlockie ? getStyles(40) : null}
               >
                 <BlockieIdenticon
                   id="blockies"
