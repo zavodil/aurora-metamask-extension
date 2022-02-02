@@ -127,10 +127,6 @@ class RestoreVaultPage extends Component {
       showSeedPhrase: !showSeedPhrase,
     }));
   };
-  // forgotPassWordTitle = (title) => {
-  //   const titleArray = title.split(' ');
-  //   return titleArray.join(' ');
-  // };
 
   render() {
     const {
