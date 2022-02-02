@@ -4,7 +4,7 @@ This migration adds submittedTime to the txMeta if it is not their
 
 */
 
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 import { TRANSACTION_STATUSES } from '../../../shared/constants/transaction';
 
 const version = 22;

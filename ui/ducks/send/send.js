@@ -3,7 +3,7 @@ import abi from 'human-standard-token-abi';
 import abiERC721 from 'human-standard-collectible-abi';
 import BigNumber from 'bignumber.js';
 import { addHexPrefix } from 'ethereumjs-util';
-import { debounce } from 'lodash';
+import { debounce } from 'lodash-es';
 import {
   conversionGreaterThan,
   conversionUtil,

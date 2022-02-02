@@ -1,5 +1,5 @@
 import React from 'react';
-import { groupBy } from 'lodash';
+import { groupBy } from 'lodash-es';
 import en from '../../../../app/_locales/en/messages.json';
 import README from './README.mdx';
 import MetaMaskTranslation from './metamask-translation';

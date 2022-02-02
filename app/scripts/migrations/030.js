@@ -5,7 +5,7 @@ removes invalid chaids from preferences and networkController for custom rpcs
 
 */
 
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 
 const version = 30;
 

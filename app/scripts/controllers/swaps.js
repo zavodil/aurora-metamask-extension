@@ -2,7 +2,7 @@ import { ethers } from 'ethers';
 import log from 'loglevel';
 import BigNumber from 'bignumber.js';
 import { ObservableStore } from '@metamask/obs-store';
-import { mapValues, cloneDeep } from 'lodash';
+import { mapValues, cloneDeep } from 'lodash-es';
 import abi from 'human-standard-token-abi';
 import { calcTokenAmount } from '../../../ui/helpers/utils/token-util';
 import { calcGasTotal } from '../../../ui/pages/send/send.utils';

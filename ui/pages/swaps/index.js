@@ -7,7 +7,7 @@ import {
   useHistory,
   Redirect,
 } from 'react-router-dom';
-import { shuffle, isEqual } from 'lodash';
+import { shuffle, isEqual } from 'lodash-es';
 import { I18nContext } from '../../contexts/i18n';
 import {
   getSelectedAccount,

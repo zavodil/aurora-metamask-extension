@@ -1,6 +1,6 @@
 import { strict as assert } from 'assert';
 import sinon from 'sinon';
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 import nock from 'nock';
 import { pubToAddress, bufferToHex } from 'ethereumjs-util';
 import { obj as createThoughStream } from 'through2';

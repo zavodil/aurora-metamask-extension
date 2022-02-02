@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
-import { debounce } from 'lodash';
+import { debounce } from 'lodash-es';
 import PropTypes from 'prop-types';
 import Box from '../../../components/ui/box';
 import Button from '../../../components/ui/button';

@@ -1,6 +1,6 @@
 import { ethErrors, errorCodes } from 'eth-rpc-errors';
 import validUrl from 'valid-url';
-import { omit } from 'lodash';
+import { omit } from 'lodash-es';
 import { MESSAGE_TYPE } from '../../../../../shared/constants/app';
 import {
   isPrefixedFormattedHexString,

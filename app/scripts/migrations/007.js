@@ -4,7 +4,7 @@ This migration breaks out the TransactionManager substate
 
 */
 
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 
 const version = 7;
 

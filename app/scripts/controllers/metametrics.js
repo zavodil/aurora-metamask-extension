@@ -1,4 +1,4 @@
-import { merge, omit, omitBy } from 'lodash';
+import { merge, omit, omitBy } from 'lodash-es';
 import { ObservableStore } from '@metamask/obs-store';
 import { bufferToHex, keccak } from 'ethereumjs-util';
 import { generateUUID } from 'pubnub';

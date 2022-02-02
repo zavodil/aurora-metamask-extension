@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEqual } from 'lodash';
+import { isEqual } from 'lodash-es';
 
 import { useSelector } from 'react-redux';
 import TokenCell from '../token-cell';

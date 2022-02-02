@@ -1,4 +1,4 @@
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 import { SUBJECT_TYPES } from '../../../shared/constants/app';
 
 const version = 69;

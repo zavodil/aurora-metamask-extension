@@ -6,7 +6,7 @@ so that we can version notices in the future.
 
 */
 
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 
 const version = 20;
 

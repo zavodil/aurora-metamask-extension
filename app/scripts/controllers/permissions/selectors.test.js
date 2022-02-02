@@ -1,4 +1,4 @@
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 import { getChangedAccounts, getPermittedAccountsByOrigin } from './selectors';
 
 describe('PermissionController selectors', () => {

@@ -4,7 +4,7 @@ This migration moves KeyringController.selectedAddress to PreferencesController.
 
 */
 
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 
 const version = 6;
 

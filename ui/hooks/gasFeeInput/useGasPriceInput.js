@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { isEqual } from 'lodash';
+import { isEqual } from 'lodash-es';
 
 import {
   GAS_ESTIMATE_TYPES,

@@ -1,4 +1,4 @@
-import { omit, pick } from 'lodash';
+import { omit, pick } from 'lodash-es';
 import { MESSAGE_TYPE } from '../../../../shared/constants/app';
 import {
   rejectPendingApproval,

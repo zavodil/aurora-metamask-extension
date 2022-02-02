@@ -1,4 +1,4 @@
-import { pick } from 'lodash';
+import { pick } from 'lodash-es';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { COLORS, SIZES } from '../../../helpers/constants/design-system';

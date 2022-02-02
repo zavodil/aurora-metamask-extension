@@ -1,4 +1,4 @@
-import { cloneDeep, isPlainObject } from 'lodash';
+import { cloneDeep, isPlainObject } from 'lodash-es';
 
 const version = 60;
 const SUPPORT_NOTIFICATION_KEY = 2;

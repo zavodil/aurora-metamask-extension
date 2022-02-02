@@ -1,7 +1,7 @@
 import EventEmitter from 'safe-event-emitter';
 import { ObservableStore } from '@metamask/obs-store';
 import log from 'loglevel';
-import { keyBy, mapValues, omitBy, pickBy, sortBy } from 'lodash';
+import { keyBy, mapValues, omitBy, pickBy, sortBy } from 'lodash-es';
 import createId from '../../../../shared/modules/random-id';
 import { TRANSACTION_STATUSES } from '../../../../shared/constants/transaction';
 import { METAMASK_CONTROLLER_EVENTS } from '../../metamask-controller';

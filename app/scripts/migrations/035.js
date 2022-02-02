@@ -5,7 +5,7 @@ Removes the deprecated 'seedWords' state
 
 */
 
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 
 const version = 35;
 

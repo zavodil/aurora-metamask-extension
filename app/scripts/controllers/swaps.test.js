@@ -2,7 +2,7 @@ import { strict as assert } from 'assert';
 import sinon from 'sinon';
 
 import { ethers } from 'ethers';
-import { mapValues } from 'lodash';
+import { mapValues } from 'lodash-es';
 import BigNumber from 'bignumber.js';
 import {
   ROPSTEN_NETWORK_ID,

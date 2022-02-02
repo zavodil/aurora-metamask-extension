@@ -1,7 +1,7 @@
 import EthQuery from 'ethjs-query';
 import log from 'loglevel';
 import { addHexPrefix } from 'ethereumjs-util';
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 import { hexToBn, BnMultiplyByFraction, bnToHex } from '../../lib/util';
 
 /**

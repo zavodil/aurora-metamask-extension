@@ -2,7 +2,7 @@ import EventEmitter from 'events';
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { shuffle } from 'lodash';
+import { shuffle } from 'lodash-es';
 import { useHistory } from 'react-router-dom';
 import isEqual from 'lodash/isEqual';
 import {

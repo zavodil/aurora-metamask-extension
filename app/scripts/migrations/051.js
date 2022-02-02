@@ -1,4 +1,4 @@
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 import { NETWORK_TYPE_TO_ID_MAP } from '../../../shared/constants/network';
 
 const version = 51;

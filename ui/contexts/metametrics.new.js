@@ -15,7 +15,7 @@ import PropTypes from 'prop-types';
 import { matchPath, useLocation, useRouteMatch } from 'react-router-dom';
 import { captureException, captureMessage } from '@sentry/browser';
 
-import { omit } from 'lodash';
+import { omit } from 'lodash-es';
 import { getEnvironmentType } from '../../app/scripts/lib/util';
 import { PATH_NAME_MAP } from '../helpers/constants/routes';
 import { txDataSelector } from '../selectors';

@@ -1,4 +1,4 @@
-import { cloneDeep, keyBy } from 'lodash';
+import { cloneDeep, keyBy } from 'lodash-es';
 import createId from '../../../shared/modules/random-id';
 
 const version = 57;

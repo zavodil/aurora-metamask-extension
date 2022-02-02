@@ -1,6 +1,6 @@
 import copyToClipboard from 'copy-to-clipboard';
 import log from 'loglevel';
-import { clone } from 'lodash';
+import { clone } from 'lodash-es';
 import React from 'react';
 import { render } from 'react-dom';
 import { getEnvironmentType } from '../app/scripts/lib/util';

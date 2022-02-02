@@ -4,7 +4,7 @@ This migration modifies our notices to delete their body after being read.
 
 */
 
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 
 const version = 12;
 

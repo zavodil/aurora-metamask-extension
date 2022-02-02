@@ -5,7 +5,7 @@ Cleans up notices and assocated notice controller code
 
 */
 
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 
 const version = 33;
 

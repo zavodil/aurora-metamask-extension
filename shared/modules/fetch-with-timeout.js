@@ -1,4 +1,4 @@
-import { memoize } from 'lodash';
+import { memoize } from 'lodash-es';
 
 const getFetchWithTimeout = memoize((timeout) => {
   if (!Number.isInteger(timeout) || timeout < 1) {

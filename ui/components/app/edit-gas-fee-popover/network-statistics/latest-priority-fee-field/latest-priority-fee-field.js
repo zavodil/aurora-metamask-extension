@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { uniq } from 'lodash';
+import { uniq } from 'lodash-es';
 import { roundToDecimalPlacesRemovingExtraZeroes } from '../../../../../helpers/utils/util';
 import { useGasFeeContext } from '../../../../../contexts/gasFee';
 import I18nValue from '../../../../ui/i18n-value';

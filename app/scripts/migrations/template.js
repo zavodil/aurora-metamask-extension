@@ -5,7 +5,7 @@ description of migration and what it does
 
 */
 
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 
 const version = 0;
 

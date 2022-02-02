@@ -1,5 +1,5 @@
 import { ethErrors } from 'eth-rpc-errors';
-import { omit } from 'lodash';
+import { omit } from 'lodash-es';
 import { MESSAGE_TYPE } from '../../../../../shared/constants/app';
 import {
   ETH_SYMBOL,

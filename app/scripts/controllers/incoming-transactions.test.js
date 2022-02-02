@@ -2,7 +2,7 @@ import { strict as assert } from 'assert';
 import sinon from 'sinon';
 import proxyquire from 'proxyquire';
 import nock from 'nock';
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 
 import waitUntilCalled from '../../../test/lib/wait-until-called';
 import {

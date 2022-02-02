@@ -2,7 +2,7 @@
  * @jest-environment node
  * https://github.com/facebook/jest/issues/7780
  */
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 import KeyringController from 'eth-keyring-controller';
 import firstTimeState from '../first-time-state';
 import mockEncryptor from '../../../test/lib/mock-encryptor';

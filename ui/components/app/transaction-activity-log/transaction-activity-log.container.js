@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { findLastIndex } from 'lodash';
+import { findLastIndex } from 'lodash-es';
 import {
   conversionRateSelector,
   getRpcPrefsForCurrentProvider,

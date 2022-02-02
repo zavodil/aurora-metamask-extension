@@ -4,7 +4,7 @@
 normalizes txParams on unconfirmed txs
 
 */
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 
 const version = 28;
 

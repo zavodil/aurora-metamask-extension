@@ -5,7 +5,7 @@ import {
   keyBy,
   pickBy,
   isPlainObject,
-} from 'lodash';
+} from 'lodash-es';
 import { TRANSACTION_TYPES } from '../../../shared/constants/transaction';
 
 const version = 59;

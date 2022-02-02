@@ -1,4 +1,4 @@
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 import { TRANSACTION_STATUSES } from '../../../shared/constants/transaction';
 
 export default function failTxsThat(version, reason, condition) {

@@ -1,7 +1,7 @@
 import pify from 'pify';
 import log from 'loglevel';
 import { captureException } from '@sentry/browser';
-import { capitalize, isEqual } from 'lodash';
+import { capitalize, isEqual } from 'lodash-es';
 import getBuyUrl from '../../app/scripts/lib/buy-url';
 import {
   fetchLocale,

@@ -4,7 +4,7 @@ This migration breaks out the CurrencyController substate
 
 */
 
-import { cloneDeep, merge } from 'lodash';
+import { cloneDeep, merge } from 'lodash-es';
 
 const version = 9;
 

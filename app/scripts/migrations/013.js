@@ -4,7 +4,7 @@ This migration modifies the network config from ambiguous 'testnet' to explicit 
 
 */
 
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 
 const version = 13;
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { omit } from 'lodash';
+import { omit } from 'lodash-es';
 import Typography from '../typography';
 import { COLORS, TYPOGRAPHY } from '../../../helpers/constants/design-system';
 

@@ -1,7 +1,7 @@
 import extension from 'extensionizer';
 import { stripHexPrefix } from 'ethereumjs-util';
 import BN from 'bn.js';
-import { memoize } from 'lodash';
+import { memoize } from 'lodash-es';
 import {
   MAINNET_CHAIN_ID,
   TEST_CHAINS,

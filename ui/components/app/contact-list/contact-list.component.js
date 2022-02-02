@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { sortBy } from 'lodash';
+import { sortBy } from 'lodash-es';
 import Button from '../../ui/button';
 import RecipientGroup from './recipient-group/recipient-group.component';
 

@@ -5,7 +5,7 @@ This migration moves the identities stored in the KeyringController
 
 */
 
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 
 const version = 26;
 

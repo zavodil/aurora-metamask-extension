@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { debounce } from 'lodash';
+import { debounce } from 'lodash-es';
 import Tooltip from '../../../ui/tooltip';
 
 export default class AdvancedGasInputs extends Component {

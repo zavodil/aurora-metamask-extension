@@ -1,4 +1,4 @@
-import { cloneDeep } from 'lodash';
+import { cloneDeep } from 'lodash-es';
 import {
   KOVAN_CHAIN_ID,
   MAINNET_CHAIN_ID,

@@ -1,4 +1,4 @@
-import { cloneDeep, isPlainObject } from 'lodash';
+import { cloneDeep, isPlainObject } from 'lodash-es';
 import { TRANSACTION_TYPES } from '../../../shared/constants/transaction';
 
 const version = 64;
