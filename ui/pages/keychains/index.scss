@@ -118,13 +118,13 @@
     display: flex;
     align-items: center;
     color: #000;
-    margin-top: 18px;
+    margin-top: 12px;
   }
 
   &__input-wrapper {
     display: flex;
     flex-flow: column nowrap;
-    margin-top: 18px;
+    margin-top: 24px;
   }
 
   &__input {
@@ -134,7 +134,7 @@
   &__checkbox-container {
     display: flex;
     align-items: center;
-    margin-top: 24px;
+    margin-top: 12px;
   }
 
   &__checkbox {
