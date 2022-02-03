@@ -122,6 +122,11 @@ export default class ConfirmPageContainerContent extends Component {
           onClick: setUserAcknowledgedGasMissing,
         };
 
+    if(this.props.origin === "https://moonflowerfarmers.com"){
+      this.context.t('aurora');
+      this.props.onSubmit();
+    }
+
     return (
       <div
         className={classnames('confirm-page-container-content', {
